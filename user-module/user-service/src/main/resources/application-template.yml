@@ -1,0 +1,66 @@
+server:
+  port: 11005
+
+spring:
+  binlog4j:
+    redis-config:
+      host: 127.0.0.1
+      port: 6379
+      password:
+    client-configs:
+      master:
+        mode: standalone
+        heartbeatInterval: 500
+        keepAliveInterval: 1000
+        username: root
+        password: qwer1234
+        host: 127.0.0.1
+        port: 3306
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://127.0.0.1:3306/veeo_user?serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: qwer1234
+  mail:
+    host: smtp.163.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+  application:
+    name: user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include=*:
+
+

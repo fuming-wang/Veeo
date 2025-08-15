@@ -1,0 +1,141 @@
+server:
+  port: 11006
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+  binlog4j:
+    redis-config:
+      host: 127.0.0.1
+      port: 6379
+      password:
+    client-configs:
+      master:
+        mode: standalone
+        heartbeatInterval: 500
+        keepAliveInterval: 1000
+        username: root
+        password: qwer1234
+        host: 127.0.0.1
+        port: 3306
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://127.0.0.1:3306/veeo_video?serverTimezone=GMT%2B8
+    username: root
+    password: qwer1234
+  application:
+    name: video-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: is_deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+biz:
+  configs:
+    getSettingBiz:
+      chain:
+        - getSettingHandler
+    updateSettingBiz:
+      chain:
+        - updateSettingHandler
+    startProcessSettingBiz:
+      chain:
+        - startProcessSettingHandler
+    getVideoByIdBiz:
+      chain:
+        - getVideoByIdHandler
+        - setUserAndUrlHandler
+        - setInteractVideoHandler
+    deleteVideoByIdBiz:
+      chain:
+        - deleteVideoHandler
+    auditVideoBiz:
+      chain:
+        - auditVideoHandler
+    starVideoBiz:
+      chain:
+        - getVideoByIdHandler
+        - starVideoHandler
+    favoriteVideoBiz:
+      chain:
+        - getVideoByIdHandler
+        - favoriteVideoHandler
+    shareVideoBiz:
+      chain:
+        - getVideoByIdHandler
+        - shareVideoHandler
+    getVideoByTypeIdBiz:
+      chain:
+        - getVideoByTypeIdHandler
+        - getVideoByIdsHandler
+        - setUserAndUrlHandler
+    searchVideoBiz:
+      chain:
+        - searchVideoByUserHandler
+        - setUserAndUrlHandler
+    banVideoBiz:
+      chain:
+        - getVideoByIdHandler
+        - banVideoHandler
+    listVideoByFavoritesBiz:
+      chain:
+        - getVideoIdsByFavoritesHandler
+        - getVideoByIdsHandler
+        - setUserAndUrlHandler
+    addHistoryVideoBiz:
+      chain:
+        - getVideoByIdHandler
+        - historyVideoHandler
+    getHistoryVideoBiz:
+      chain:
+        - getHistoryVideoHandler
+        - setUserAndUrlHandler
+    pushSimilarVideoBiz:
+      chain:
+        - listSimilarVideoIdHandler
+        - getVideoByIdsHandler
+        - setUserAndUrlHandler
+    pushVideoBiz:
+      chain:
+        - pushVideoIdHandler
+        - getVideoByIdsHandler
+        - setUserAndUrlHandler
+    listByUserIdOpenVideoBiz:
+      chain:
+        - listByUserIdOpenVideoHandler
+        - setUserAndUrlHandler
+    getHotVideoBiz:
+      chain:
+        - getHotVideoIdHandler
+        - getVideoByIdsHandler
+        - setUserAndUrlHandler
+    listByUserIdVideoBiz:
+      chain:
+        - listByUserIdVideoHandler
+        - setUserAndUrlHandler
+    publishVideoBiz:
+      chain:
+        - publishVideoHandler
+    followFeedBiz:
+      chain:
+        - followFeedHandler
+        - setUserAndUrlHandler

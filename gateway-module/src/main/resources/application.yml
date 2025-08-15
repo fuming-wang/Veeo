@@ -1,0 +1,32 @@
+server:
+  port: 11000
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: file-service
+          uri: lb://file-service
+          predicates:
+            - Path=/veeo/file/**, /api/file/**, /api/QiNiuFile/**, /api/audit/**
+        - id: interest-service
+          uri: lb://interest-service
+          predicates:
+            - Path=/api/feed/**, /api/interest/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**, /veeo/login/**, /admin/user/**, /authorize/permission/**, /authorize/role/**, /api/follow/**, /api/userSubscribe/**
+        - id: video-service
+          uri: lb://video-service
+          predicates:
+            - Path=/api/favorites/**,  /api/type/**, /api/video/**, /veeo/customer/**, /veeo/index/**, /veeo/video/**, /admin/type/**, /admin/video/**, /admin/setting/**
+
